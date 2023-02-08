@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet">
-    <title> Operations on Strings</title>
+    <title> Asynchronous JS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
@@ -15,360 +15,439 @@
 <body>
     <script src="js/app.js"></script>
     <div class="container">
-        <h1 class="alert alert-info m-4">Strings [ devTeam branch ] </h1>
+        <h1 class="alert alert-info m-4"> Asynchronous JS</h1>
         <hr>
         <h3 class="alert alert-warning">1. </h3>
         <p>
-            - Function - It is the relation between Input & Output.
+            - Normal Behaviour of JS Engine is synchronous, non-blocking ( Eg. Just like Switches & Tubes ). You just tap the switches & go on. It doesn't matter when all Tubelights will be switched on. Some might take 2-3 seconds, some might take more time & some might not work.
             <br>
-            - Function - Block of code which is created to perform a particular task.
-            <br>
-            - Function is very similar to Mathematical formulas.
-            <br>
-            - Ex. Fruit-Juice-Machine can be a function which is created to perform a particular task which inputs the fruits & gives the juice of that fruit. So the content (any fruit) is the Parameter - local declaration, & machine has been instructed to make the juice of any fruit ( Parameters - local declaration ) it will receive in the input. To make the juice is the operation / function which we have defined. Juice is the Output of this function that we will receive after calling the function with the right Arguements. Arguements is the actual input values we receive when the function is being called. Arguement can be an Apple, Banana, Orange. So the Output / Juice ( If the input is apple then you will get apple juice ) will be the result which will vary on the basis of Input. But the operation / process / function would remain same in any case.
-            <br>
-            - Parameters & Arguments in Function - Local declarations / variables which is used at the time of function declaration which is limited for function block only & used for that function operation or task. However, Arguments are the declarations or variables which is used at the time of function call & it's the actual Input values to be used for the operation / task.
-            <br>
-            Ex. 
-            <br> function addTwoNum (firstNum, secondNum) {  // firstNum & secondNum are the parameters <br>
-                                var resultOfTwo = firstNum + secondNum; <br> // You may store the result in a variable
-                                console.log(resultOfTwo); // This will be the output of this function when it's called<br> 
-                                // return firstNum + secondNum; <br> // or You may ' return '' it, so it can be fetched easily when this function is called <br>
-                                        }
-                                        <br>
-                                // var resultofTwo = addTwoNum(73,89); // function is called & result is stored in the variable resultOfTwo
+            - In some scenarios, we might not need JS synchronous behavious, & we need to make it Asynchronous ( blocking / depending ) then we will use some methods to make it asynchronous.
+          
+            <br><br> 
+            <b>Examples </b>
             <br>
             <br>
-            - 
-            <b>Examples -</b>
-            <br>
-            <br>
-            <b>*</b> 
+            <b>*</b> Normal Behavious ( Synchronous / Non-blocking ) of JS - Function 10, 20 & 30
             <br>
             --- Output -->
-                <script>  
-                   let lastIndex = str.lastIndexOf("Angular");
-                   console.log(lastIndex);
+                <script> 
 
-                   let indexOfReact = str.indexOf("React");
+                    function print10 () {
+                        document.write(`10 `);
+                    }
 
-                   let indexOfNode = str.indexOf("Node");
+                    function print20() {
+                        document.write(`20 `);
+                    }
 
-                   let str3 = " Angular is a javascript framework which is developed by Google. Google launched the 15th version of Angular.";
+                    function print30() {
+                        document.write(`30 `);
+                    }
+
+                    print10();
+                    print20();
+                    print30();
+                 
+                </script>
+            <br>
+            <br>
+            <b>*</b> how we manipulate it in Asynchronous / blocking behavious - Function 10, 20 & 30
+            <br>
+            --- Output --> Check console
+                <script> 
                 
-                   if ( str3.indexOf(" Google ") > -1 ) {
-                    console.log (" Google is there in the sentence.");
-                   }
+                    function print10 () {
+                        console.log(`10`);
+                    }
 
+                    function print20() {
+                        // document.write(`20`);
+                        setTimeout( () => {
+                            console.log(`20`); // In real example, we might need some data from database & API is taking 1s (1000) more time than other functions
+                            print30(); // called here because of dependency
+                        }, 1000);
+                       
+                    }
 
-                   console.log(str3.included("Google")); 
+                    function print30() {
 
-                   if ( str3.includes("Google") ) {
-                        console.log(" Google is there in the sentence.");
-                   }
+                        console.log(`30`); // If the execution of print30 is dependent on the result of print20() then we need to block print30(), as it should not execute before the execution of print20(), so we called print30() inside script of function print20() only
+                    }
 
-                   let str4 = 'I love Javascript';
-                   console.log( str4.toLowerCase );
-                   console.log( str4.toUpperCase );
-                   console.log( str4.includes("javascript") ); // false
-                   console.log( str4.toLowerCase.includes("javascript")); // true
-
-                   // trim
-
-                   let oxygen = ' javascript ';
-                   console.log( oxygen.length ); // 12
-                   console.log( oxygen.trim().length ) // 10
-
-                   if ( oxygen.length === 10 ) {
-                    console.log('string is not trimmed');
-                   }
-
-                   if ( oxygen.trim().length === 10 ) {
-                    console.log('string is trimmed from left & right side');
-                   }
-
-                   let greet1 = 'Hello';
-                   let greet2 = 'JS';
-
-                   // greet1 = greet1 + " " + greet2;
-                   greet1 = greet1.concat(' ' + greet2);
-                   greet1 = `${ greet1 } ${ greet2 }`
-
+                    print10();
+                    print20();
+                    // print30();
+                 
                 </script>
             <br>
             <br>
-            <b>*</b> Function without parameters
+            <b>*</b> pass a function as a parameter to make an asynchronous function generic too ( We cannot structure the data before we fetch it from the database which is taking 2s time. So we need to call templating functions only when we're done with fetching. & then we might need template in ul li or table format. So we're passing the callback function as a parameter to fetchData() so it will now become a generic function too  )
             <br>
-            --- Output -->
+            --- Output --> check console
                 <script>
 
-                    function justPrintMsg() {
-                        document.write('Function works without Parameters, not even needed here..');
-                        // return "Function works without parameters too.";
-                        // return "Function works without parameters too." + name; // 'name' if we had such any parameter
+                    function fetchData(callBackFunction) {
+                        setTimeout( () => {
+                            console.log(`Fetching the Data from DB. API call takes 2 seconds.`);
+                            callBackFunction();
+                        }, 4000 );
                     }
 
-                    justPrintMsg();
-                    // var retTot = justPrintMsg();
-                    // document.write(retTot);
-                </script>
-            <br>
-            <br>
-            <b>*</b> Function with 'return' keyword - The return statement stops the execution of a function and returns a value ( It maybe any string, numbers etc). so the value you will receive in the form of output can be stored into another variable / declaration, & that can be used multiple times.
-            <br>
-            Note : The return statement stops the execution, so any code you write after 'return' statement would not be considered.
-            <br>
-            --- Output -->
-                <script>
-
-                    function add2Nums(num1, num2) {
-                        return num1 + num2; 
-                        // totNum = num1 + num2;
-                        // return totNum;
+                    function templatingLi() {
+                        setTimeout( () => {
+                            console.log(`It will format the fetched data in ul li structure. `);
+                        }, 2000 );
                     }
 
-                    // document.write(add2Nums(23,67));
+                    function templatingTable() {
+                        setTimeout( () => {
+                            console.log(`It will format the fetched data in table structure. `);
+                        }, 2000 );
+                    }
 
-                    var totalOf2 = add2Nums(94,28); // totalOf2 will store the value of function which is returned using 'return'
-
-                    document.write(totalOf2);
-                    // alert(totalOf2);
-                    // console.log(totalOf2); // Now we can use the output of function add2Nums multiple times by just storing the result of the function in a declaration.
+                    //fetchData(templatingLi);
+                    fetchData(templatingTable);
+                    // templatingLi();
+                    // templatingTable();
                     
                 </script>
             <br>
             <br>
-            <b>*</b> Function with 'return' keyword but without paramaters
+            <b>*</b>  Asynchronous JS in case of Blogs website
             <br>
             --- Output -->
-                <script>
 
-                    function test2() {
-                        return "I love HTML"; 
-                    }
+                <div class="container">
+                    <div class="row">
+                        <table class="table table-bordered">
+                           <thead>
+                                <tr>
+                                    <td>Title</td>
+                                    <td>Content</td>
+                                </tr>
+                           </thead>
+                           <tbody id="hBlogs">
+                               
+                           </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                    var ttest2 = test2();
-
-                    document.write(ttest2);
+               <script>
                    
-                </script>
-            <br>
-            <br>
-            <b>*</b> Function with 'return' keyword with parameters
-            <br>
-            --- Output -->
-                <script>
+                   let blogs = [ 
+                                    {
+                                           title : 'JS',
+                                           content : 'JS is an object oriented but loosely typed language which is most powerful language in the world of Web.'
+                                    },
+                                    {
+                                            title : 'Angular',
+                                            content : 'Angular supports Single Page Application where its made up of various components & it only renders the data which is required & helps in increasing the speed of the website. '
+                                    }
+                    ];
 
-                    function test3(skill) {
-                        return 'I love ' + skill;
+
+                    let jBlogs = document.getElementById("hBlogs");
+
+                    
+                    function addBlog(nBlog, fetchb) {
+
+                        setTimeout( () => {
+                            blogs.push(nBlog);
+                            fetchb(templating);
+                        }, 3000 );
+                    
                     }
 
-                    var ttest3 = test3('JS');
+                    function fetchBlogs(templa) {
 
-                    // document.write(ttest3);
-                    document.write(test3('JS'));
+                        setTimeout( () => {
+                            
+                          templa(blogs);
+
+                          // jtempla(blogs);
+                            
+                        }, 1000 );
+
+                    }
+
+                    function templating(pblogs) {
+
+                        setTimeout( () => {
+                            
+                            let resultBlogs = ``;
+
+                            pblogs.forEach( (pb) => {
+
+                                resultBlogs += `
+                                    <tr>
+                                        <td>${ pb.title }</td>
+                                        <td>${ pb.content }</td>
+                                    </tr>
+                                `;
+
+                            });    
+                        
+                            jBlogs.innerHTML = resultBlogs;
+                            
+                        }, 1000 );
+
+                    }
+                    // let blog = { title : "HTML5", content : "HTML5 includes very advance features."}
+                    
+                    
+                    addBlog( { title : "HTML5", content : "HTML5 includes very advance features."}, fetchBlogs );
+                    
+                    //templating(blogs);
+                    // addBlog(blog);
+
+
+                </script>
+        
+
+            <br>
+            <br>
+            <b>*</b> Trial on Asynchronous JS
+            <br>
+            --- Output -->
+            <br><br>
+
+                <div class="container">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>No</td>
+                                    <td>Name</td>
+                                    <td>Account Number</td>
+                                    <td>Status</td>
+                                    <td>Deposit Amt</td>
+                                </tr>
+                            </thead>
+                            <tbody id="hInfo">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <script>
+
+                    usersAccount = [
+                        {
+                            fname : 'Milind Chheda',
+                            accno : 1234567890001,
+                            status : 'pending'
+                        },
+                        {
+                            fname : 'Rishi Kolhe',
+                            accno : 1234567890002,
+                            status : 'pending'
+                        }
+                    ];
+
+                    function addAccount(arr,nObj,templa) {
+
+                       setTimeout( () => {
+
+                            arr.push(nObj);
+                            templa(usersAccount);
+
+                       }, 1000 );
+
+                    }
+
+                    function statusApproved(accNo) {
+
+                        usersAccount.forEach( (ua) => {
+                            if ( ua.accno == accNo ) {
+                                ua.status = 'Approved';
+                                // console.log(ua.status);
+                            }
+                        } );
+                        
+                        // templa(usersAccount);
+
+                    }
+
+                    function deposit(accNo,amt) {
+
+                        usersAccount.forEach( (uac) => {
+                            if( uac.accno == accNo && uac.status == 'Approved') {
+                                if ( typeof uac.deposit == 'undefined' ) {
+                                    uac.deposit = 0;
+                                }
+                                uac.deposit = uac.deposit + amt;
+                                
+                            }
+                        } );
+
+                    }
+
+                    let jInfo = document.getElementById("hInfo");
+
+                    function templantingo(arr) {
+
+                        statusApproved(1234567890002);
+
+                        deposit(1234567890002, 10000);
+
+                        let resulto = ``;
+
+                        arr.forEach( ( elem, i) => {
+
+                            resulto += `
+                                <tr>
+                                    <td>${ i+1 }</td>
+                                    <td>${ elem.fname }</td>
+                                    <td>${ elem.accno }</td>
+                                    <td>${ elem.status }</td>
+                                    <td>${ elem.deposit }</td>
+                                </tr>
+                            `;
+
+                        } );
+
+                        jInfo.innerHTML = resulto;
+
+                    }
+
+                    addAccount(usersAccount,{ fname : 'Vishal Rasne', accno : 1234567890003, status : 'pending' }, templantingo);
+
+                    // templatingo(usersAccount);
+
+                    
 
                 </script>
             <br>
+            <br>
+            <b>*</b> Testing some Timeouts in asynchronous JS
+            <br>
+            --- Output -->
+            <script>
+            
+                function timeOut1 (tmtn) {
+                    setTimeout( () => {
+                        console.log(` Executed Timeout 1s `);
+                        tmtn('7s + 3s');
+                    }, 7000 );
+                }
+
+                function timeOut2 () {
+                    setTimeout( () => {
+                        console.log(` Executed Timeout 2s `);
+                    }, 2000 );
+                }
+
+                function timeOut3 (sec) {
+                    setTimeout( () => {
+                        console.log(` Executed Timeout 3s - took ${ sec } `);
+                    }, 3000 );
+                }
+
+                timeOut1(timeOut3);
+                // timeOut2();
+                
+
+            </script>
+            <br>
+            <br>
+
+            <b>*</b> 
+            <br>
+            --- Output -->
+            <script>
+
+
+            </script>
+            <br>
+            <br>
+
+            <b>*</b> 
+            <br>
+            --- Output -->
+            <script>
+             
+            </script>
+            <br>
+            <br>
+            
+            <b>*</b> 
+            <br>
+            --- Output -->
+            <script>
+            
+            </script>
+            <br>
+            <br>
+
+            <b>*</b> 
+            <br>
+            --- Output -->
+            <script>
+           
+            </script>
+            <br>
+            <br>
+
+            <b>*</b> 
+            <br>
+            --- Output -->
+            <script>
+             
+            </script>
+            <br>
+            <br>
+
+
         </p>
         <br>
         <h3 class="alert alert-warning">Assignment</h3>
         <p>
            --
             <br>
-            <b>Ex.1 -</b> Area of a triangle 
+            <b>Ex.1 -</b> 
             <br>
             Output - --> 
             <script>
-                function areaOfTriangle(base, height) {
-                            return base * height * 0.5;
-                }
-                var triangle15x20 = areaOfTriangle(15,20);
-                document.write(triangle15x20 + " sq.ft | ");
-                var triangle30x50 = areaOfTriangle(30,50);
-                document.write(triangle30x50 + " sq.ft");
+                
             </script>
             <br>
             <br>
-            <b>Ex.2 -</b> Area of a Circle 
+            <b>Ex.2 -</b> 
             <br>
             Output - --> 
             <script>
-                // function areaOfCircle(radius) {
-                //     return 3.14 * radius * radius;
-                // }
-                // var circle25 = areaOfCircle(010);
-                document.write(circle25);
+               
             </script>
             <br>
             <br>
-            <b>Ex.3 -</b> GST 18% 
+            <b>Ex.3 -</b> 
+            <br>
+            Output - --> 
+             <script>
+               
+            </script>
+            <br>
+            <br>
+            <b>Ex.4 -</b> 
             <br>
             Output - --> 
             <script>
-                    function gst18(amt) {
-                        return amt * 18 / 100;
-                    }
-                    var gstOn3000 = gst18(3000);
-                    document.write( 'Rs.' + gstOn3000 + ' /- | ');
-                    var gstOn7000 = gst18(7000);
-                    document.write('Rs.' + gstOn7000);
+              
             </script>
             <br>
             <br>
-            <b>Ex.4 -</b> increament a number by 1
+            <b>Ex.5 -</b> 
             <br>
             Output - --> 
             <script>
-                    function increamentBy1(i) {
-                        // return i++;
-                        // return i = i + 1 ;
-                        return i+= 1;
-                    }
-                    var increamentedNumber = increamentBy1(27);
-                    document.write(increamentedNumber);
-            </script>
-            <br>
-            * Query : return i++ is not working here
-            <br>
-            <br>
-            <b>Ex.5 -</b> concatenation of strings
-            <br>
-            Output - --> 
-            <script>
-                  function stringConcat(firstString, secondString) {
-                    return firstString + secondString;
-                  }
-                  var newString1 = stringConcat('Mom','Dad');
-                  document.write(newString1);
+             
             </script>
             <br>
             <br>
-            <b>Ex.6 -</b> Output on the basis of a random number
-            <br>
-            Output - --> 
-            <script>
-                function randomNumber() {
-                    var rn = Math.random(); // Math.random() returns a random between 0 to 1
-                    if (rn > 0.5) {
-                        return color = 'white - ' + rn ;
-                    }
-                    else {
-                        return color = 'black - ' + rn;
-                    }
-                }
-                var finalColor = randomNumber();
-                document.write(finalColor);
-            </script>
-            <br>
-            <br>
-            <b>Ex.7 -</b> Any number to the power of x
-            <br>
-            Output - 7 to the power of 3 --> 
-            <script>
-                function numberToPowerX(number, px) {
-                    newNumber = 1;
-                    for (i=0; i<px; i++)
-                    {
-                    newNumber = newNumber * number;
-                    }
-                    return newNumber;
-                }
-                var npx = numberToPowerX(7,3);
-                document.write(npx);
-            </script>
-            <br>
-            <br>
-            <b>Ex.8 -</b> Area of a Rectangle 
-            <br>
-            Output - --> 
-            <script>
-              function areaOfRect(length, width) {
-                return length * width;
-              }
-              var rectArea = areaOfRect(12,40);
-              document.write(rectArea + ' sq.ft');
-            </script>
-            <br>
-            <br>
-            <b>Ex.9 -</b> Volume of a Rectangle  
-            <br>
-            Output - --> 
-            <script>
-                function volumeOfRect(length, width, height) {
-                    return length * width * height;
-                }
-                var rectVolume = volumeOfRect(12,40,15);
-                document.write(rectVolume + " cb.ft");
-            </script>
-            <br>
-            <br>
-            <b>Ex.10 -</b> Print the sequence of numbers
-            <br>
-            Output - --> 
-            <script>
-                function seqNum(num, seq) {
-                    for (i=0; i<=seq; i++)
-                    {
-                        document.write(newNum = num + i + ',');
-                    }
-                    // return newNum;
-                }
-                // var fsn = seqNum(16,9);
-                // document.write(fsn);
-                seqNum(16,9);
-            </script>
-            <br>
-            <br>
-            <b>Ex.11 -</b> Method in an Object
-            <br>
-            Output - --> 
-            <script>
-                person = {
-                            fName : 'Sachin',
-                            lName : 'Oswal',
-                            fullName : function () { 
-                                            // return fName + lName; // Wrong
-                                            // return person.fName + person.lName; // Right 
-                                            return this.fName + this.lName; // using this keyword
-                                                    }
-                            }
-                document.write(person.fullName());
-            </script>
-            <br>
-            // As fullName is a function, key 'fullName' in object 'person' is the method key (fName & lName is property key). <br>
-            // This is anonymous function where we don't write any name ahead of function() <br>
-            // no declaration after keyword function in above example, cause fullName : function () compiles to function fullName() <br>
-            // & so wheneer you want to fetch the value of this method key, you need to call this function as person.fullName() <br>
-            <br>
-
-            <b>Ex.12 -</b> Find if a number is prime or not 
-            <br>
-            Output - --> 
-            <script>
-                function ifNumPrime(num1) {
-                    for(i=2; i<num1; i++)
-                    {
-                        if (num1 % i == 0 ) {
-                            gtr = 'This is not a prime Number';
-                            break;
-                        } 
-                        else {
-                            gtr = 'This is a Prime Number';
-                        }
-                    }
-                   return gtr;
-                }
-
-                var ipn = ifNumPrime(11);
-                document.write(ipn);
-                // ifNumPrime(11); // not valid here, if a function uses return. then the output value of function should store in some variable as we have done in above line
-
-            </script>
-            <br>
-            <br>
-
-            <b>Ex. -</b> reverse a string 
+          
+            <b>Ex. -</b> 
             <br>
             Output - --> 
             <script>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
+    <title> Role of API in Asynchronous JS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <script src="js/app.js"></script>
+    <div class="container">
+        <h1 class="alert alert-info m-4"> Role of API in Asynchronous JS</h1>
+        <hr>
+        <h3 class="alert alert-warning">1. </h3>
+        <p>
+            ------  API ( Eg. like a Waiter in Restaurant ) is responsible to get (fetch), post (send), patch/put (update) & delete the data from the database 
+            <br>
+            ------ AJAX - Asynchronous JavaScript & XML - Allows us to communicate with remote servers
+            in an asynchronous way. With AJAX calls, we can request data from web servers 
+            dynamically. With AJAX we can update the page partially / completely without refreshing / reloading the page.
+           <br>
+            ------- API Call Methods --
+            <br>
+            - GET - to get the data from the database
+            <br>
+            - POST - to create / send new data in database
+            <br>
+            - DELETE - to remove the data from the database
+            <br>
+            - PATCH/PUT - to update the data in Database | Patch - update one or more key - value pair | PUT - update a complete object of multiple key - value pairs 
+            <br>
+            ------ Some APIs - Web Storage, local storage, Geolocation, Drag & Drop, Fetch, XMLHttpRequest etc
+            <br>
+            ------ Some concepts related to API
+            <br> 
+            - www.myflipkart.com/api >> Base url
+            <br>
+            - www.myflipkart.com/api/products >> end points >> data of all products >> api link ( communication between back-end & front-end )
+            <br>
+            - www.myflipkart.com/api/users >> end points >> data of all the users
+            <br>
+            - www.myflipkart.com/api/products/123 >> end point >> data of a single product ( product 123) >> 
+            <br>
+            - www.myflipkart.com/api/users/5 >> end point >> data of that specific user with id 5 >> it will be useful to GET, PATCH, DELETE methods
+            <br>
+            - Usually, APIs are provided by backend developer of our team. Backend developers gives the api link with some token ( authorize code ), so that authorized person can only access the data. Everytime you access the api link & data, everytime a token will be generated & verified before you access the data.
+            <br>
+            -
+            ready dummy api available ( Open source ) on interent -
+            <br>
+            - base url -> https://jsonplaceholder.typicode.com/
+            <br>
+            - end points -> https://jsonplaceholder.typicode.com/posts | https://jsonplaceholder.typicode.com/users | 
+            <br>
+            - specific user end point -> https://jsonplaceholder.typicode.com/users/7
+
+            <br><br> 
+
+            <b>Examples </b>
+            <br>
+            <br>
+            <b>*</b> use of various methods in API call
+            <br>
+           
+
+            --- Output -->
+                <script> 
+
+                  ///////  GET Method /////////
+
+                  let xhr = new XMLHttpRequest();  
+                  // created instance / object of XMLHttpRequest using constructor ( used keyword 'new' to make use of constructor ) 
+
+                  baseUrl = "https://jsonplaceholder.typicode.com/posts/"; // API base url
+
+                  xhr.open("GET",baseUrl);  // If xhr.status === 200
+                  // xhr.open("GET", baseUrl, true); byDefault value is true of isAsync
+                  // configuration of API call // You might call GET, POST, DELETE, PATCH/PUT etc
+                  // Called method open() of that instance / object >> parameters ( methodName, apiUrl, isAsync )
+                  // By default value of isAsync parameter is true
+
+                  xhr.send(); // send method to check the response from the database server
+
+                  //   xhr.onload = function () {
+                  //     console.log(xhr.response);
+                  //   }
+                  xhr.onload = () => { 
+
+                    //console.log(xhr.response) 
+
+                    let data = JSON.parse(xhr.response); // called the response property of instance to fetch the data & parsed the Data ( which was in "key" : "value" both in string format ) 
+
+                    console.log(data);
+
+                    // templating(data);
+
+                  }; 
+
+                // a method is called after we get response from the server
+
+
+                  /////  POST METHOD   ///////
+
+                  let xhs = new XMLHttpRequest();
+
+                  objc = {
+                        title : 'New Object to Post',
+                        body : 'Some Lorem Ipsum content in the Body',
+                        id : 7
+                    }
+
+                    xhs.open("POST", baseUrl); // If xhr.status === 201
+
+                    xhs.send(JSON.stringify(objc));
+
+                    xhs.onload = () => {
+
+                        console.log(xhs.response);
+
+                    }
+               
+                 
+                </script>
+            <br>
+            <br>
+
+
+
+            <b>*</b> a function is used to call the GET & POST Method 
+            <br>
+            --- Output --> 
+
+            <div class="h1 bg-secondary p-2 text-white mb-3">HTTP</div>    
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="postContainer">
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <form id="postForm">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="body">Body Content</label>
+                                <input type="text" id="body" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-success" id="submit">Post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                <script>
+
+
+                  let jPostContainer = document.getElementById("postContainer");
+
+                  const templating = (arr) => {
+
+                    result = ``;
+
+                    arr.forEach( pst => {
+                        result += `
+                            <div class="card mb-4"> 
+                                    <div class="card-header"> 
+                                        <h3> ${ pst.title }</h3>
+                                    </div>
+                                        <div class="card-body">
+                                            <p> ${ pst.body } </p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary">Edit</button>
+                                            <button class="btn btn-danger">Delete</button>
+                                    </div>
+                            </div>
+                        `;
+                    });
+
+                    jPostContainer.innerHTML = result;
+
+                  }
+
+                
+                apiCalls = ( methodName, burl, obj ) => {
+
+                    let xhf = new XMLHttpRequest();
+
+                    xhf.open( methodName, burl);
+
+                    xhf.onload = () => {
+
+                             if ( xhf.status === 200 ) {
+
+                                // console.log(JSON.parse(xhf.response));
+
+                                let data = JSON.parse(xhf.response);
+
+                                templating(data);
+                                
+                             } 
+                             else if ( xhf.status === 201 ) {
+
+                                console.log(xhf.response);
+
+                             }
+                    } 
+
+                    xhf.send(JSON.stringify(obj));
+                    
+                } 
+
+                let apiBaseUrl = "https://jsonplaceholder.typicode.com/posts/";
+
+                apiCalls("GET", apiBaseUrl, null );    // called GET method using a function
+
+
+
+                // let newObject = { title : 'A new Obj to be Added', body : 'This new object is going to be added into the database using API POST Call ...', userId : 7 } ;
+
+                let jTitle = document.getElementById("title");
+                let jBody = document.getElementById("body");
+                
+                newObject = {
+                        title : jTitle.value,
+                        body : jBody.value,
+                        userId : Math.ceil( Math.random() * 10 )
+                }
+
+                apiCalls("POST", apiBaseUrl, newObject); // called POST method using a function
+
+
+
+                // let apiBaseUrl = "https://jsonplaceholder.typicode.com/posts/"; 
+
+                // let xhf = new XMLHttpRequest(); // created instance / object of API
+
+                // xhf.open( "GET", apiBaseUrl ); // configuration of API calls
+
+                // xhf.send(); // to check the response from the DB server
+
+                // xhf.onload = () => {
+                    
+                //     console.log(JSON.parse(xhf.response));
+                 
+                // }
+
+                </script>
+
+            <br>
+            <br>
+
+
+
+        </p>
+        <br>
+        <h3 class="alert alert-warning">Assignment</h3>
+        <p>
+           --
+            <br>
+            <b>Ex.1 -</b> 
+            <br>
+            Output - --> 
+            <script>
+                
+            </script>
+            <br>
+            <br>
+            <b>Ex.2 -</b> 
+            <br>
+            Output - --> 
+            <script>
+               
+            </script>
+            <br>
+            <br>
+            <b>Ex.3 -</b> 
+            <br>
+            Output - --> 
+             <script>
+               
+            </script>
+            <br>
+            <br>
+            <b>Ex.4 -</b> 
+            <br>
+            Output - --> 
+            <script>
+              
+            </script>
+            <br>
+            <br>
+            <b>Ex.5 -</b> 
+            <br>
+            Output - --> 
+            <script>
+             
+            </script>
+            <br>
+            <br>
+          
+            <b>Ex. -</b> 
+            <br>
+            Output - --> 
+            <script>
+              
+            </script>
+            <br>
+    
+        </p>
+
+      
+    </div>
+
+</body>
+
+</html>
